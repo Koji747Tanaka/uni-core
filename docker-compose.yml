@@ -1,0 +1,23 @@
+version: "3.7"
+volumes:
+  site-packages-uni-core:
+services:
+  lcl:
+    container_name: uni-lcl
+    image: uni-core:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env.local
+    environment:
+      - PIP_INSTALL=true
+    ports:
+      - 18000:8000
+    working_dir: /app
+    entrypoint: scripts/entrypoint.sh
+    volumes:
+      - site-packages-uni-core:/usr/local/lib/python3.10/site-packages
+      - .:/app
+    tty: true
+    stdin_open: true
