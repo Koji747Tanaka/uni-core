@@ -45,8 +45,6 @@ def s3_get_client():
         service_name="s3",
         aws_access_key_id=os.environ.get('AWS_ACCESS_KEY_ID'),
         aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY'),
-        # aws_access_key_id=credentials.access_key_id,
-        # aws_secret_access_key=credentials.secret_access_key,
         region_name=credentials.region_name,
     )
 
@@ -83,9 +81,6 @@ def s3_generate_presigned_post(*, file_path: str, file_type: str) -> Dict[str, A
         Conditions=[
             {"acl": acl},
             {"Content-Type": file_type},
-            # As an example, allow file size up to 10 MiB
-            # More on conditions, here:
-            # https://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-HTTPPOSTConstructPolicy.html
             ["content-length-range", 1, credentials.max_size],
         ],
         ExpiresIn=expires_in,

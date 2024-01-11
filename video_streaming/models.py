@@ -3,7 +3,7 @@ from django.conf import settings
 
 
 def file_generate_upload_path(instance, filename):
-    return f"files/{instance.file_name}"
+    return f"portfolio/{instance.file_name}"
 
 
 class File(models.Model):
