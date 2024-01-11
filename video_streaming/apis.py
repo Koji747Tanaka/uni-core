@@ -3,6 +3,7 @@ from rest_framework import serializers, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from video_streaming.services import (FileDirectUploadService)
 # from styleguide_example.files.models import File
 # from styleguide_example.files.services import (
 #     FileDirectUploadService,
@@ -25,15 +26,11 @@ class FileDirectUploadStartApi(APIView):
         file_type = serializers.CharField()
 
     def post(self, request, *args, **kwargs):
-        print("zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz")
-        # serializer = self.InputSerializer(data=request.data)
-        # serializer.is_valid(raise_exception=True)
-
-        # service = FileDirectUploadService(request.user)
-        # presigned_data = service.start(**serializer.validated_data)
-
-        # return Response(data=presigned_data)
-        return 
+        serializer = self.InputSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        service = FileDirectUploadService()
+        presigned_data = service.start(**serializer.validated_data)
+        return Response(data=presigned_data)
 
 
 class FileDirectUploadLocalApi(APIView):

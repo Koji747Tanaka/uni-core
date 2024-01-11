@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     'rest_framework',
-    'storages'
+    'storages',
+    'video_streaming'
 ]
 
 MIDDLEWARE = [
@@ -118,9 +119,20 @@ USE_TZ = True
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
-AWS_S3_REGION_NAME = 'your-region'  # e.g., 'us-west-2'
+AWS_S3_REGION_NAME = 'ap-southeast-2'
 AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+FILE_UPLOAD_STORAGE='s3'
+AWS_S3_SIGNATURE_VERSION = os.environ.get("AWS_S3_SIGNATURE_VERSION", default="s3v4")
+AWS_PRESIGNED_EXPIRY = os.environ.get("AWS_PRESIGNED_EXPIRY", default=10)  
+FILE_MAX_SIZE = os.environ.get("FILE_MAX_SIZE", default=1048576000)  
+AWS_DEFAULT_ACL = os.environ.get("AWS_DEFAULT_ACL", default="private")
+
+
+
+
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
